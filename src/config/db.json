@@ -1,0 +1,3 @@
+{
+    "DB_URL": "mongodb+srv://<user>:<password>@demos.kdzqm.mongodb.net/<dbname>?retryWrites=true&w=majority",
+}

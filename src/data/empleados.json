@@ -1,0 +1,8 @@
+{
+    "empleados":[
+        {"id": 1, "name": "React desde cero", "teacher": "Pedro Perez"},
+        {"id": 2, "name": "Drupal 8 desde cero", "teacher": "Gabriel Gaviria"},
+        {"id": 3, "name": "React desde cero", "teacher": "Juana Perez"},
+        {"id": 4, "name": "Drupal 8 desde cero", "teacher": "Ana Gaviria"}
+    ]   
+}
