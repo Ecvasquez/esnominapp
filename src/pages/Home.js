@@ -11,7 +11,7 @@ export const Home = () => {
         <i className="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
       </div>
       <div className="cta d-none d-md-flex align-items-center">
-        <a href="./login" className="scrollto">Login</a>
+        <a href="./app" className="scrollto">Login</a>
       </div>
     </div>
   </section>

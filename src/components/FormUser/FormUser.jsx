@@ -19,20 +19,6 @@ export const FormUser = () => {
     const [tipocuenta, setTipocuenta] = useState('');
     const [numcuenta, setNumcuenta] = useState('');
 
-    const [tipocontrato, setTipocontrato] = useState('');
-    const [cargo, setCargo] = useState('');
-    const [fechainicio, setFechainicio] = useState('');
-    const [fechafinal, setFechafinal] = useState('');
-    const [dependencia, setDependencia] = useState('');
-    const [salario, setSalario] = useState('');
-    const [disponibilidad, setDisponibilidad] = useState('');
-
-    const [usuario, setUsuario] = useState('');
-    const [pass, setPass] = useState('');
-    const [rol, setRol] = useState('');
-
-    const employee=[]
-
     const cambiocedula = (e) => setCedula(e.target.value);
     const cambionombre = (e) => setNombre(e.target.value);
     const cambioapellido = (e) => setApellido(e.target.value);
@@ -48,24 +34,59 @@ export const FormUser = () => {
     const cambiotipocuenta = (e) => setTipocuenta(e.target.value);
     const cambionumcuenta = (e) => setNumcuenta(e.target.value);
 
-    const cambiotipocontrato = (e) => setTipocontrato(e.target.value);
-    const cambiocargo = (e) => setCargo(e.target.value);
-    const cambiofechainicio = (e) => setFechainicio(e.target.value);
-    const cambiofechafinal = (e) => setFechafinal(e.target.value);
-    const cambiodependencia = (e) => setDependencia(e.target.value);
-    const cambiosalario = (e) => setSalario(e.target.value);
-    const cambiodisponibilidad = (e) => setDisponibilidad(e.target.value);
-    const cambiousuario = (e) => setUsuario(e.target.value);
-    const cambiopass = (e) => setPass(e.target.value);
-    const cambiorol = (e) => setRol(e.target.value);
+    const crear_empleado = () => {
+        const empleado = {
+            document: cedula,
+            name: nombre,
+            lastname: apellido,
+            gender: genero,
+            birthDate: fechanac,
+            birthCity:ciudadnac,
+            telephone:telefono,
+            adress:direccion,
+            city:ciudad,
+            email:email,
+            bank:banco,
+            accountType:tipocuenta,
+            accountNumber:numcuenta
+        }
+        return empleado;
+    }
 
+   
     const validardatos = (e) => {
         e.preventDefault();
-        if (cedula === '' || nombre === '' || apellido === '' || genero === '' || fechanac === '' || ciudadnac === '' || telefono === '' || direccion === '' || ciudad === '' || email === '') {
+        if (cedula === '' || nombre === '' || apellido === '' || genero === '' || fechanac === '' || ciudadnac === '' 
+        || telefono === '' || direccion === '' || ciudad === '' || email === '') {
             alert('Debe llenar todos los campos');
         } else {
-            alert('Datos guardados');
-            console.log(employee)
+            const empleado = {
+                document: cedula,
+                name: nombre,
+                lastname: apellido,
+                gender: genero,
+                birthDate: fechanac,
+                birthCity:ciudadnac,
+                telephone:telefono,
+                adress:direccion,
+                city:ciudad,
+                email:email,
+                bank:banco,
+                accountType:tipocuenta,
+                accountNumber:numcuenta
+            }
+            alert(JSON.stringify(empleado))
+            /*fetch('http://localhost:9000/api/employees', {
+            method: 'POST', // or 'PUT'
+            body: JSON.stringify(empleado), // data can be `string` or {object}!
+            headers:{
+            'Content-Type': 'application/json'
+            }
+            }).then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => console.log('Success:', response));*/
+            //alert('Datos guardados');
+            //window.location.href = "../app"
         }
     }
 
@@ -82,14 +103,14 @@ export const FormUser = () => {
                         </Card.Header>
                         <Card.Body>
                             <Card.Text>
-                                <div>
-                        <label  htmlFor="cedula">Cédula</label>
-                        <input  type="text" 
-                                className="form-control" 
-                                id="cedula"
-                                name="cedula"
-                                value={ cedula }
-                                onChange={cambiocedula}/>
+                                <div className="form-group">
+                                    <label  htmlFor="cedula">Cédula</label><br />
+                                    <input  type="text" 
+                                            className="form-control" 
+                                            id="cedula"
+                                            name="cedula"
+                                            value={ cedula }
+                                            onChange={cambiocedula}/>
                                 </div>
                                 <div className="form-group">
                                     <label  htmlFor="nombre">Nombre</label>
@@ -117,13 +138,13 @@ export const FormUser = () => {
                                                 name="genero" 
                                                 onChange={cambiogenero} >
                                                 <option selected>Seleccione Genero</option>
-                                                <option value={' M'}>Masculino</option>
-                                                <option value={'F'}>Femenino</option>
+                                                <option value={' Masculino'}>Masculino</option>
+                                                <option value={'Femenino'}>Femenino</option>
                                         </select>
                                 </div>
                                 <div className="form-group">
                                     <label  htmlFor="fechanac">Fecha de Nacimiento</label>
-                                    <input  type="text" 
+                                    <input  type="date" 
                                             className="form-control" 
                                             id="fechanac"
                                             name="ciudadnac" 
@@ -148,7 +169,20 @@ export const FormUser = () => {
                                             value={ telefono } 
                                             onChange={cambiotelefono}/>
                                 </div>
-                                <div className="form-group">
+                                
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Col>
+                
+                <Col>
+                    <Card>
+                        <Card.Header>
+                            <Card.Title></Card.Title>
+                        </Card.Header>
+                        <Card.Body>
+                            <Card.Text>
+                            <div className="form-group">
                                     <label  htmlFor="direccion">Dirección</label>
                                     <input  type="text" 
                                             className="form-control" 
@@ -167,7 +201,7 @@ export const FormUser = () => {
                                             onChange={cambiociudad}/>
                                 </div>
                                 <div className="form-group">
-                                    <label  htmlFor="email">E-mail</label>
+                                    <label  htmlFor="email">E-mail</label><br />
                                     <input  type="text" 
                                             className="form-control" 
                                             id="email"
@@ -188,7 +222,6 @@ export const FormUser = () => {
                                     <option value={'Banco de Occidente'}>Banco de Occidente</option>
                             </select>
                                 </div>
-
                                 <div className="form-group">
                                 <label  htmlFor="tipocuenta">Tipo de Cuenta</label><br />
                                     <select className="form-select" 
@@ -197,12 +230,11 @@ export const FormUser = () => {
                                                 name="tipocuenta" 
                                                 onChange={cambiotipocuenta} >
                                                 <option selected>Seleccione tipo de cuenta</option>
-                                                <option value={' Bancolombia'}>Corriente</option>
-                                                <option value={'Av villas'}>Ahorros</option>
+                                                <option value={' Corriente'}>Corriente</option>
+                                                <option value={'Ahorros'}>Ahorros</option>
                                                 <option value={'Nomina'}>Nómina</option>
                                         </select>
                                 </div>
-
                                 <div className="form-group">
                                     <label  htmlFor="numcuenta">Número de Cuenta</label>
                                     <input  type="text" 
@@ -212,126 +244,7 @@ export const FormUser = () => {
                                             value={ numcuenta } 
                                             onChange={cambionumcuenta}/>
                                 </div>
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                
-                <Col>
-                    <Card>
-                        <Card.Header>
-                            <Card.Title>Informacion Contractual</Card.Title>
-                        </Card.Header>
-                        <Card.Body>
-                            <Card.Text>
-                                <div className="form-group">
-                                <label  htmlFor="tipocontrato">Tipo de Contrato</label><br />
-                        <select className="form-select" 
-                                aria-label="Default select example" 
-                                id="tipocontrato" 
-                                name="tipocontrato" 
-                                onChange={cambiotipocontrato} >
-                                <option selected>Seleccione Tipo de Contrato</option>
-                                <option value={'Prestacion de servicios'}>Prestacion de servicios</option>
-                                <option value={'Por Horas'}>Por Horas</option>
-                                <option value={'Tiempo Completo'}>Gerencia</option>
-                        </select>
-                                </div>
-                                <div className="form-group">
-                                <label  htmlFor="cargo">Cargo</label><br />
-                                    <select className="form-select" 
-                                            aria-label="Default select example" 
-                                            id="cargo" 
-                                            name="cargo" 
-                                            onChange={cambiocargo} >
-                                            <option selected>Seleccione Cargo</option>
-                                            <option value={'Auxiliar'}>Auxiliar</option>
-                                            <option value={'Administrativo'}>Administrativo</option>
-                                            <option value={'Gerencia'}>Gerencia</option>
-                                    </select>
-                                </div>
-                                <div className="form-group">
-                                    <label  htmlFor="apellido">Fecha Inicio</label>
-                                    <input  type="date" 
-                                            className="form-control" 
-                                            id="fechainicio"
-                                            name="fechainicio" 
-                                            value={ fechainicio }
-                                            onChange={cambiofechainicio}/>
-                                </div>
-                                <div className="form-group">
-                                    <label  htmlFor="fechafinal">Fecha Finalización</label>
-                                    <input  type="date" 
-                                            className="form-control" 
-                                            id="fechafinal"
-                                            name="fechafinal" 
-                                            value={ fechafinal }
-                                            onChange={cambiofechafinal}/>
-                                </div>
-                                <div className="form-group">
-                                <label  htmlFor="dependencia">Dependencia</label><br />
-                                    <select className="form-select" 
-                                            aria-label="Default select example" 
-                                            id="dependencia" 
-                                            name="dependencia" 
-                                            onChange={cambiodependencia} >
-                                            <option selected>Seleccione Dependencia</option>
-                                            <option value={'Limpieza'}>Limpieza</option>
-                                            <option value={'Comercial'}>Comercial</option>
-                                            <option value={'Recursos Humanos'}>Recursos Humanos</option>
-                                    </select>
-                                </div>
-                                <div className="form-group">
-                                    <label  htmlFor="salario">Salario</label>
-                                    <input  type="text" 
-                                            className="form-control" 
-                                            id="salario"
-                                            name="salario" 
-                                            value={ salario } 
-                                            onChange={cambiosalario}/>
-                                </div>
-                                <div className="form-group">
-                                    <label  htmlFor="disponibilidad">Disponibilidad</label>
-                                    <input  type="text" 
-                                            className="form-control" 
-                                            id="disponibilidad" 
-                                            name="disponibilidad" 
-                                            value={ disponibilidad } 
-                                            onChange={cambiodisponibilidad}/>
-                                </div>
-
-                                <div className="form-group">
-                    <label  htmlFor="usuario">Usuario</label>
-                    <input  type="text" 
-                            className="form-control" 
-                            id="usuario"
-                            name="usuario" 
-                            value={ usuario } 
-                            onChange={cambiousuario}/>
-                                </div>
-                                <div className="form-group">
-                                    <label  htmlFor="pass">Contraseña</label>
-                                    <input  type="password" 
-                                            className="form-control" 
-                                            id="pass"
-                                            name="pass"
-                                            value={ pass } 
-                                            onChange={cambiopass}/>
-                                </div>
-                                <div className="form-group">
-                                <label  htmlFor="rol">Rol Usuario</label><br />
-                                    <select className="form-select" 
-                                            aria-label="Default select example" 
-                                            id="rol" 
-                                            name="rol" 
-                                            onChange={cambiorol} >
-                                            <option selected>Seleccione Rol</option>
-                                            <option value={'Administrador'}>Administrador</option>
-                                            <option value={'Nomina'}>Nomina</option>
-                                            <option value={'Empleado'}>Empleado</option>
-                                    </select>
-                                </div>
-
+                             
                             </Card.Text>
                         </Card.Body>
                     </Card>
@@ -343,17 +256,12 @@ export const FormUser = () => {
                 </Col>
                 <Col>
                     <div className="form-group">
-                        <Button variant="primary">Enviar</Button>
+                        <button type="submit" className="btn btn-primary " >Enviar</button>
                     </div>
                 </Col>
 
             </Row> 
-                
-                
-
-
             </form>
-            
         </div>
     )
 }

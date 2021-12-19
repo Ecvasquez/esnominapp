@@ -1,6 +1,18 @@
-import React from 'react'
+import React,{useState} from 'react'
+import { Link} from "react-router-dom";
 
-export const TableUsers = () => {
+export const TableUsers = (props) => {
+    const {employees} = props
+    const [contract,setContract] = useState([]);
+    const datacontract = (id) => {
+        fetch(`http://localhost:9000/api/employees/${id}`)
+        .then(response => response.json())
+        .then(data => setContract(data));
+    }
+    console.log(employees)
+    const recibir_empleado = () => {
+
+    }
     return (
     <div className="container-fluid box box-info">
             <h3 className="box-title">Usuarios</h3>
@@ -9,45 +21,44 @@ export const TableUsers = () => {
                 <table className="table table-bordered">
                     <thead>
                         <tr>
+                            <th>Documento</th>
                             <th>Nombre</th>
-                            <th>Cargo</th>
-                            <th>Dependencia</th>
-                            <th>Inicio Contrato</th>
-                            <th>Fin Contrato</th>
+                            <th>Apellido</th>
+                            <th>Telefono</th>
+                            <th>Dirección</th>
+                            <th>Email</th>
                             <th colspan="3">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Pedro Perez</td>
-                            <td>Auxiliar</td>
-                            <td>Limpieza</td>
-                            <td>21/01/2021</td>
-                            <td>21/12/2021</td>
-                            <td><button type="button" class="btn btn-success">Ver</button></td>
-                            <td><button type="button" class="btn btn-danger">Eliminar</button></td>
-                            <td><button type="button" class="btn btn-primary">Solicitudes</button></td>
-                        </tr>
-                        <tr>
-                            <td>Gabriel Gaviria</td>
-                            <td>Auxiliar</td>
-                            <td>Limpieza</td>
-                            <td>21/01/2021</td>
-                            <td>21/12/2021</td>
-                            <td><button type="button" class="btn btn-success">Ver</button></td>
-                            <td><button type="button" class="btn btn-danger">Eliminar</button></td>
-                            <td><button type="button" class="btn btn-primary">Solicitudes</button></td>
-                        </tr>
-                        <tr>
-                            <td>Andrea Andrade</td>
-                            <td>Auxiliar</td>
-                            <td>Limpieza</td>
-                            <td>21/01/2021</td>
-                            <td>21/12/2021</td>
-                            <td><button type="button" class="btn btn-success">Ver</button></td>
-                            <td><button type="button" class="btn btn-danger">Eliminar</button></td>
-                            <td><button type="button" class="btn btn-primary">Solicitudes</button></td>
-                        </tr>
+                        {
+                            employees.map(employee => {
+                                return(
+                                    <tr>
+                                        <td>{employee.document}</td>
+                                        <td>{employee.name}</td>
+                                        <td> {employee.lastname}</td>
+                                        <td>{employee.telephone}</td>
+                                        <td>{employee.address}</td>
+                                        <td>{employee.email}</td>
+                                        <td>
+                                            
+                                            <Link to={`../empleados?id=${employee._id}`}>
+                                                <button type="button" className="btn btn-primary btn-lg" >ver</button>
+                                            </Link>
+                                        </td>
+                                        <td><button type="button" class="btn btn-danger btn-lg">Eliminar</button></td>
+                                        <td>
+                                            <Link to={`../solicitud?id=${employee._id}`}>
+                                                <button type="button" className="btn btn-info btn-lg" >Solicitudes</button>
+                                            </Link>
+                                        </td>
+                                       
+                                    </tr>
+                                )
+                            })
+                        }
+                       
                     </tbody>
                 </table>
             </div>{/* /.table-responsive */}
